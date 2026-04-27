@@ -31,6 +31,15 @@ Traduza o texto completo, seguindo estas regras:
 
 #### Notação LaTeX
 - **Preserve toda notação LaTeX** sem alterações como regra padrão
+- **Sintaxe para renderização:**
+  - Inline math (fórmula no meio do texto): use `$...$`
+  - Display math (bloco centralizado): use `$$...$$`
+  - Converta `\(` → `$` e `\)` → `$`; converta `\[` → `$$` e `\]` → `$$`
+- **Escaping de chaves:** Dentro de `$...$` ou `$$...$$`, toda `{` e `}` literal (que não seja grupo LaTeX) deve ser escapada como `\{` e `\}`. Isso é crítico para:
+  - Notação de conjuntos aninhados: `{{a}, {a, b}}` → `$\{\{a\}, \{a, b\}\}$`
+  - Definição de pares ordenados (Kuratowski): `{{a}, {a, b}}`
+  - Qualquer chave que represente elemento, não agrupamento
+  - **Regra prática:** se uma chave delimita um conjunto dentro da fórmula, ela deve ser escapada
 - **Exceções a adaptar:**
   - Separador decimal: em contextos narrativos, adapte "3.14" → "3,14" quando escrito por extenso; dentro de ambientes LaTeX matemáticos (`$...$`, `$$...$$`, `\[...\]`) **não altere**
   - Conjuntos numéricos: a notação de fonte blackboard bold (`\mathbb{N}`, `\mathbb{R}`, etc.) é universal — mantenha
